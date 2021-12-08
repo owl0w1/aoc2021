@@ -1,26 +1,81 @@
-pub fn part1(_input: &str) -> ! {
-    todo!()
+pub fn part1(input: &str) -> u32 {
+    let digits = input.lines().flat_map(|s| s[61..].split_ascii_whitespace());
+    digits.filter(|s| matches!(s.len(), 2 | 4 | 3 | 7)).count() as u32
 }
 
-pub fn part2(_input: &str) -> ! {
-    todo!()
+fn parse_seven_seg(s: &str) -> u8 {
+    s.as_bytes()
+        .iter()
+        .fold(0, |n, seg| n | (1 << (seg - b'a')))
 }
 
-#[allow(unreachable_code)]
+pub fn part2(input: &str) -> u32 {
+    let mut sum = 0;
+    for line in input.lines() {
+        let clues = line[..58].split_ascii_whitespace();
+        let mut seg_one = 0;
+        let mut seg_four = 0;
+        for clue in clues {
+            match clue.len() {
+                2 => seg_one = parse_seven_seg(clue),
+                4 => seg_four = parse_seven_seg(clue),
+                _ => (),
+            }
+            if seg_one != 0 && seg_four != 0 {
+                break;
+            }
+        }
+        let seg_bd = seg_four ^ seg_one;
+        let digits = line[61..].split_ascii_whitespace();
+        let mut val = 0;
+        for digit_str in digits {
+            let digit = match digit_str.len() {
+                2 => 1,
+                4 => 4,
+                3 => 7,
+                7 => 8,
+                5 => {
+                    let seg = parse_seven_seg(digit_str);
+                    if seg | seg_one == seg {
+                        3
+                    } else if seg | seg_bd == seg {
+                        5
+                    } else {
+                        2
+                    }
+                }
+                6 => {
+                    let seg = parse_seven_seg(digit_str);
+                    if seg | seg_four == seg {
+                        9
+                    } else if seg | seg_bd == seg {
+                        6
+                    } else {
+                        0
+                    }
+                }
+                _ => panic!("invalid input"),
+            };
+            val = 10 * val + digit;
+        }
+        sum += val;
+    }
+    sum
+}
+
 #[cfg(test)]
 #[test]
 fn part1_test() {
     assert_eq!(
         part1(&std::fs::read_to_string("input/day08.txt").unwrap()),
-        ()
+        476
     );
 }
-#[allow(unreachable_code)]
 #[cfg(test)]
 #[test]
 fn part2_test() {
     assert_eq!(
         part2(&std::fs::read_to_string("input/day08.txt").unwrap()),
-        ()
+        1011823
     );
 }
