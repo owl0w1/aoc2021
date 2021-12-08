@@ -1,4 +1,4 @@
-use aoc20xx::*;
+use aoc2021::*;
 use criterion::{black_box, criterion_group, criterion_main, Criterion};
 use std::fs::read_to_string;
 

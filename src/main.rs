@@ -1,13 +1,13 @@
-const TITLE: &str = "Advent of Code 20xx solutions";
+const TITLE: &str = "Advent of Code 2021 solutions";
 const USAGE_INFO: &str = "\
 Usage:
-    aoc20xx <day> <part>
+    aoc2021 <day> <part>
 
 Arguments:
     day  {1 .. =25}
     part {1 | 2}";
 
-use aoc20xx::*;
+use aoc2021::*;
 use std::{
     env::args,
     io::{stdin, Read},
