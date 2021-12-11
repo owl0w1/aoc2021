@@ -17,13 +17,16 @@ fn step(grid: &mut [[u8; GRID_SIZE + 2]; GRID_SIZE + 2]) -> u32 {
         }
     }
     let mut count = 0;
-    loop {
-        let mut flashed = Vec::with_capacity(1 << 5);
+    let mut flashed = true;
+    while flashed {
+        flashed = false;
         #[allow(clippy::needless_range_loop)]
         for i in 1..=GRID_SIZE {
             for j in 1..=GRID_SIZE {
                 if grid[i][j] > 9 {
-                    flashed.push((i, j));
+                    grid[i][j] = 0;
+                    flashed = true;
+                    count += 1;
                     if grid[i][j + 1] != 0 {
                         grid[i][j + 1] += 1;
                     }
@@ -50,13 +53,6 @@ fn step(grid: &mut [[u8; GRID_SIZE + 2]; GRID_SIZE + 2]) -> u32 {
                     }
                 }
             }
-        }
-        if flashed.is_empty() {
-            break;
-        }
-        count += flashed.len();
-        for (i, j) in flashed {
-            grid[i][j] = 0;
         }
     }
     count as u32
