@@ -1,38 +1,36 @@
 pub fn part1(input: &str) -> u64 {
     let mut sum = 0;
     for line in input.lines() {
-        let mut score = 0;
         let mut stack = Vec::with_capacity(1 << 5);
         for c in line.as_bytes() {
             match *c {
                 b')' => {
                     if stack.pop() != Some(b'(') {
-                        score = 3;
+                        sum += 3;
                         break;
                     }
                 }
                 b']' => {
                     if stack.pop() != Some(b'[') {
-                        score = 57;
+                        sum += 57;
                         break;
                     }
                 }
                 b'}' => {
                     if stack.pop() != Some(b'{') {
-                        score = 1197;
+                        sum += 1197;
                         break;
                     }
                 }
                 b'>' => {
                     if stack.pop() != Some(b'<') {
-                        score = 25137;
+                        sum += 25137;
                         break;
                     }
                 }
                 _ => stack.push(*c),
             }
         }
-        sum += score;
     }
     sum
 }
