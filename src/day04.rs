@@ -50,20 +50,20 @@ impl Board {
     }
 }
 
-fn parse_input(input: &str) -> (Vec<u32>, Vec<Board>) {
+fn parse_input(input: &str) -> (Vec<u32>, std::collections::HashMap<u32, usize>, Vec<Board>) {
     let (nums_input, boards_input) = input.split_once('\n').unwrap();
-    let nums = nums_input.split(',').map(|s| s.parse().unwrap()).collect();
-    let boards = boards_input[2..].split("\n\n").map(Board::new).collect();
-    (nums, boards)
-}
-
-pub fn part1(input: &str) -> u32 {
-    let (nums, mut boards) = parse_input(input);
+    let nums: Vec<_> = nums_input.split(',').map(|s| s.parse().unwrap()).collect();
     let nums_map = nums
         .iter()
         .enumerate()
         .map(|(idx, num)| (*num, idx))
         .collect();
+    let boards = boards_input[2..].split("\n\n").map(Board::new).collect();
+    (nums, nums_map, boards)
+}
+
+pub fn part1(input: &str) -> u32 {
+    let (nums, nums_map, mut boards) = parse_input(input);
     let mut first_win_turn = usize::MAX;
     let mut first_win_board = 0;
     for (idx, board) in boards.iter_mut().enumerate() {
@@ -77,12 +77,7 @@ pub fn part1(input: &str) -> u32 {
 }
 
 pub fn part2(input: &str) -> u32 {
-    let (nums, mut boards) = parse_input(input);
-    let nums_map = nums
-        .iter()
-        .enumerate()
-        .map(|(idx, num)| (*num, idx))
-        .collect();
+    let (nums, nums_map, mut boards) = parse_input(input);
     let mut last_win_turn = 0;
     let mut last_win_board = 0;
     for (idx, board) in boards.iter_mut().enumerate() {
