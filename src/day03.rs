@@ -11,8 +11,7 @@ pub fn part1(input: &str) -> u32 {
     }
     let gamma = one_counts
         .into_iter()
-        .map(|count| if count > line_count / 2 { 1 } else { 0 })
-        .fold(0, |n, bit| (n << 1) | bit);
+        .fold(0, |n, count| (n << 1) | (count > line_count / 2) as u32);
     gamma * (!gamma & ((1 << width) - 1))
 }
 
@@ -27,7 +26,7 @@ fn bit_majority(mut nums: &[u32], width: usize, flip: bool) -> u32 {
             nums = &nums[partition_idx..];
         } else {
             nums = &nums[..partition_idx];
-            criteria &= !criteria_bit;
+            criteria ^= criteria_bit;
         }
     }
     nums[0]
