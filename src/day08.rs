@@ -1,6 +1,6 @@
 pub fn part1(input: &str) -> u32 {
     let digits = input.lines().flat_map(|s| s[61..].split_ascii_whitespace());
-    digits.filter(|s| matches!(s.len(), 2 | 4 | 3 | 7)).count() as u32
+    digits.filter(|s| matches!(s.len(), 2 | 4 | 3 | 7)).count() as _
 }
 
 fn parse_seven_seg(s: &str) -> u8 {
@@ -28,14 +28,15 @@ pub fn part2(input: &str) -> u32 {
         let seg_bd = seg_four ^ seg_one;
         let digits = line[61..].split_ascii_whitespace();
         let mut val = 0;
-        for digit_str in digits {
-            let digit = match digit_str.len() {
+        for digit in digits {
+            val *= 10;
+            val += match digit.len() {
                 2 => 1,
                 4 => 4,
                 3 => 7,
                 7 => 8,
                 5 => {
-                    let seg = parse_seven_seg(digit_str);
+                    let seg = parse_seven_seg(digit);
                     if seg | seg_one == seg {
                         3
                     } else if seg | seg_bd == seg {
@@ -45,7 +46,7 @@ pub fn part2(input: &str) -> u32 {
                     }
                 }
                 6 => {
-                    let seg = parse_seven_seg(digit_str);
+                    let seg = parse_seven_seg(digit);
                     if seg | seg_four == seg {
                         9
                     } else if seg | seg_bd == seg {
@@ -56,7 +57,6 @@ pub fn part2(input: &str) -> u32 {
                 }
                 _ => panic!("invalid input"),
             };
-            val = 10 * val + digit;
         }
         sum += val;
     }
