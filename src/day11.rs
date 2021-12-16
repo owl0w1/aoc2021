@@ -4,7 +4,7 @@ fn parse_input(input: &str) -> [[u8; GRID_SIZE + 2]; GRID_SIZE + 2] {
     let nums = input.as_bytes().iter().filter(|c| **c != b'\n');
     let mut grid = [[0; GRID_SIZE + 2]; GRID_SIZE + 2];
     for (idx, num) in nums.enumerate() {
-        grid[idx / GRID_SIZE + 1][idx % GRID_SIZE + 1] = *num - b'0';
+        grid[idx / GRID_SIZE + 1][idx % GRID_SIZE + 1] = num - b'0';
     }
     grid
 }
