@@ -3,7 +3,7 @@ pub fn part1(input: &str) -> u64 {
     for line in input.lines() {
         let mut stack = Vec::with_capacity(1 << 5);
         for c in line.as_bytes() {
-            match *c {
+            match c {
                 b')' => {
                     if stack.pop() != Some(b'(') {
                         sum += 3;
@@ -40,7 +40,7 @@ pub fn part2(input: &str) -> u64 {
     'lines: for line in input.lines() {
         let mut stack = Vec::with_capacity(1 << 5);
         for c in line.as_bytes() {
-            match *c {
+            match c {
                 b')' => {
                     if stack.pop() != Some(b'(') {
                         continue 'lines;
