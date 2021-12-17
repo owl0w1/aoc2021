@@ -27,30 +27,14 @@ fn step(grid: &mut [[u8; GRID_SIZE + 2]; GRID_SIZE + 2]) -> u32 {
                     grid[i][j] = 0;
                     flashed = true;
                     count += 1;
-                    if grid[i][j + 1] != 0 {
-                        grid[i][j + 1] += 1;
-                    }
-                    if grid[i - 1][j + 1] != 0 {
-                        grid[i - 1][j + 1] += 1;
-                    }
-                    if grid[i - 1][j] != 0 {
-                        grid[i - 1][j] += 1;
-                    }
-                    if grid[i - 1][j - 1] != 0 {
-                        grid[i - 1][j - 1] += 1;
-                    }
-                    if grid[i][j - 1] != 0 {
-                        grid[i][j - 1] += 1;
-                    }
-                    if grid[i + 1][j - 1] != 0 {
-                        grid[i + 1][j - 1] += 1;
-                    }
-                    if grid[i + 1][j] != 0 {
-                        grid[i + 1][j] += 1;
-                    }
-                    if grid[i + 1][j + 1] != 0 {
-                        grid[i + 1][j + 1] += 1;
-                    }
+                    grid[i][j + 1] += (grid[i][j + 1] != 0) as u8;
+                    grid[i - 1][j + 1] += (grid[i - 1][j + 1] != 0) as u8;
+                    grid[i - 1][j] += (grid[i - 1][j] != 0) as u8;
+                    grid[i - 1][j - 1] += (grid[i - 1][j - 1] != 0) as u8;
+                    grid[i][j - 1] += (grid[i][j - 1] != 0) as u8;
+                    grid[i + 1][j - 1] += (grid[i + 1][j - 1] != 0) as u8;
+                    grid[i + 1][j] += (grid[i + 1][j] != 0) as u8;
+                    grid[i + 1][j + 1] += (grid[i + 1][j + 1] != 0) as u8;
                 }
             }
         }
