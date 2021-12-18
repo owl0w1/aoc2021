@@ -1,15 +1,14 @@
 const CYCLE: usize = 7;
 const COOLDOWN: usize = 2;
 
-fn simulate(input: &str, days: u32) -> u64 {
+fn simulate(input: &str, days: usize) -> u64 {
     let mut fish = [0; CYCLE + COOLDOWN];
     input
         .split_terminator(&[',', '\n'][..])
         .map(|s| s.parse::<usize>().unwrap())
-        .for_each(|t| fish[t] += 1);
-    for _ in 0..days {
-        fish[CYCLE] += fish[0];
-        fish.rotate_left(1);
+        .for_each(|d| fish[d] += 1);
+    for day in 0..days {
+        fish[(day + CYCLE) % (CYCLE + COOLDOWN)] += fish[day % (CYCLE + COOLDOWN)];
     }
     fish.into_iter().sum()
 }
