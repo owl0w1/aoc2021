@@ -22,10 +22,10 @@ fn fold(dots: &[(usize, usize)], instrs: &[(u8, usize)]) -> (Vec<(usize, usize)>
         for (dir, axis) in instrs {
             if *dir == b'x' {
                 x = x.min(2 * axis - x);
-                min_x_axis = min_x_axis.min(*axis);
+                min_x_axis = *axis;
             } else {
                 y = y.min(2 * axis - y);
-                min_y_axis = min_y_axis.min(*axis);
+                min_y_axis = *axis;
             }
         }
         folded_dots.push((x, y));
