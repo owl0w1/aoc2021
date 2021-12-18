@@ -4,9 +4,7 @@ pub fn part1(input: &str) -> u32 {
 }
 
 fn parse_seven_seg(s: &str) -> u8 {
-    s.as_bytes()
-        .iter()
-        .fold(0, |n, seg| n | (1 << (seg - b'a')))
+    s.bytes().fold(0, |n, seg| n | (1 << (seg - b'a')))
 }
 
 pub fn part2(input: &str) -> u32 {

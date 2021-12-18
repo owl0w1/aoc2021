@@ -2,7 +2,7 @@ pub fn part1(input: &str) -> u64 {
     let mut sum = 0;
     for line in input.lines() {
         let mut stack = Vec::with_capacity(1 << 5);
-        for c in line.as_bytes() {
+        for c in line.bytes() {
             match c {
                 b')' => {
                     if stack.pop() != Some(b'(') {
@@ -28,7 +28,7 @@ pub fn part1(input: &str) -> u64 {
                         break;
                     }
                 }
-                _ => stack.push(*c),
+                _ => stack.push(c),
             }
         }
     }
@@ -39,7 +39,7 @@ pub fn part2(input: &str) -> u64 {
     let mut scores = Vec::new();
     'lines: for line in input.lines() {
         let mut stack = Vec::with_capacity(1 << 5);
-        for c in line.as_bytes() {
+        for c in line.bytes() {
             match c {
                 b')' => {
                     if stack.pop() != Some(b'(') {
@@ -61,7 +61,7 @@ pub fn part2(input: &str) -> u64 {
                         continue 'lines;
                     }
                 }
-                _ => stack.push(*c),
+                _ => stack.push(c),
             }
         }
         let mut score = 0;
