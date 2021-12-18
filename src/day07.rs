@@ -4,11 +4,9 @@ pub fn part1(input: &str) -> u32 {
         .map(|s| s.parse().unwrap())
         .collect();
     let nums_len = nums.len();
-    let median0 = *nums.select_nth_unstable(nums_len / 2).1;
-    let median1 = *nums.select_nth_unstable((nums_len + 1) / 2).1;
-    let median = (median0 + median1) / 2;
+    let median_lower = *nums.select_nth_unstable(nums_len / 2).1;
     nums.into_iter()
-        .map(|num| (num - median).abs() as u32)
+        .map(|num| (num - median_lower).abs() as u32)
         .sum()
 }
 
