@@ -20,7 +20,6 @@ fn step(grid: &mut [[u8; GRID_SIZE + 2]; GRID_SIZE + 2]) -> u32 {
     let mut flashed = true;
     while flashed {
         flashed = false;
-        #[allow(clippy::needless_range_loop)]
         for i in 1..=GRID_SIZE {
             for j in 1..=GRID_SIZE {
                 if grid[i][j] > 9 {
