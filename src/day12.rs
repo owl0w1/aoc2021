@@ -4,15 +4,16 @@ struct Graph {
 }
 impl Graph {
     fn new(s: &str) -> Self {
-        let mut names = std::collections::HashMap::from([("end", 0), ("start", 1)]);
+        use std::collections::{hash_map::Entry::*, HashMap};
+        let mut names = HashMap::from([("end", 0), ("start", 1)]);
         let mut adj_list = vec![Vec::new(); 2];
         let mut node_cap = vec![false; 2];
         for edge in s.split_ascii_whitespace() {
             let (from, to) = edge.split_once('-').unwrap();
             let next_idx = names.len();
             let from_idx = match names.entry(from) {
-                std::collections::hash_map::Entry::Occupied(slot) => *slot.get(),
-                std::collections::hash_map::Entry::Vacant(slot) => {
+                Occupied(slot) => *slot.get(),
+                Vacant(slot) => {
                     adj_list.push(Vec::new());
                     node_cap.push(from.as_bytes()[0].is_ascii_uppercase());
                     *slot.insert(next_idx)
@@ -20,8 +21,8 @@ impl Graph {
             };
             let next_idx = names.len();
             let to_idx = match names.entry(to) {
-                std::collections::hash_map::Entry::Occupied(slot) => *slot.get(),
-                std::collections::hash_map::Entry::Vacant(slot) => {
+                Occupied(slot) => *slot.get(),
+                Vacant(slot) => {
                     adj_list.push(Vec::new());
                     node_cap.push(to.as_bytes()[0].is_ascii_uppercase());
                     *slot.insert(next_idx)
