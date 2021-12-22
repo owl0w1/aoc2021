@@ -25,7 +25,7 @@ pub fn part2(input: &str) -> u32 {
         .iter()
         .map(|num| (num - mean_upper) * (num - mean_upper) + (num - mean_upper).abs())
         .sum::<i32>();
-    ssd0.min(ssd1) as u32 / 2
+    (ssd0.min(ssd1) / 2) as _
 }
 
 #[cfg(test)]

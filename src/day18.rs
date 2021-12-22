@@ -1,7 +1,7 @@
-fn parse_snailfish(s: impl AsRef<[u8]>) -> Vec<(u8, u8)> {
+fn parse_snailfish(s: &str) -> Vec<(u8, u8)> {
     let mut snailfish = Vec::with_capacity(1 << 4);
     let mut depth = 0;
-    for c in s.as_ref() {
+    for c in s.bytes() {
         match c {
             b'[' => depth += 1,
             b']' => depth -= 1,

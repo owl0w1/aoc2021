@@ -47,7 +47,7 @@ fn eval(hex: &[u8], caret: &mut usize) -> u64 {
         read_bits(hex, caret, 15)
     } else {
         read_bits(hex, caret, 11)
-    } as usize;
+    } as _;
     let sub_packet_bit_start = *caret;
     let mut sub_packet_count = 1;
     let mut num = eval(hex, caret);

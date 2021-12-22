@@ -55,7 +55,7 @@ pub fn part2(input: &str) -> u32 {
     let mut step_num = 0;
     loop {
         step_num += 1;
-        if step(&mut grid) == (GRID_SIZE * GRID_SIZE) as u32 {
+        if step(&mut grid) == (GRID_SIZE * GRID_SIZE) as _ {
             return step_num;
         }
     }
