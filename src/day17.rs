@@ -11,18 +11,16 @@ fn parse_input(input: &str) -> (i32, i32, i32, i32) {
 
 fn test((left, right, bottom, top): (i32, i32, i32, i32), (mut vx, mut vy): (i32, i32)) -> bool {
     let (mut x, mut y) = (0, 0);
-    loop {
-        x += vx;
-        y += vy;
+    while y >= bottom {
         if left <= x && x <= right && bottom <= y && y <= top {
             return true;
         }
-        if y < bottom {
-            return false;
-        }
+        x += vx;
+        y += vy;
         vx = 0.max(vx - 1);
         vy -= 1;
     }
+    false
 }
 
 pub fn part1(input: &str) -> u32 {
