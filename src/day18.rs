@@ -46,14 +46,14 @@ fn reduce(mut sfnum: Vec<(u8, u8)>, split_allowed: bool) -> Vec<(u8, u8)> {
     reduced
 }
 
-fn add(mut this: Vec<(u8, u8)>, that: &[(u8, u8)]) -> Vec<(u8, u8)> {
-    this.extend(that);
-    if this.len() != that.len() {
-        for num in this.iter_mut() {
+fn add(mut a: Vec<(u8, u8)>, b: &[(u8, u8)]) -> Vec<(u8, u8)> {
+    a.extend(b);
+    if a.len() != b.len() {
+        for num in a.iter_mut() {
             num.1 += 1;
         }
     }
-    reduce(reduce(this, false), true)
+    reduce(reduce(a, false), true)
 }
 
 fn magnitude(sfnum: &[(u8, u8)]) -> u32 {
@@ -85,12 +85,12 @@ pub fn part2(input: &str) -> u32 {
         .map(parse_snailfish)
         .collect();
     let mut max_magnitude = 0;
-    for i in 0..sfnums.len() {
-        for j in 0..sfnums.len() {
-            if i == j {
+    for a in &sfnums {
+        for b in &sfnums {
+            if core::ptr::eq(a, b) {
                 continue;
             }
-            let sum = add(sfnums[i].clone(), &sfnums[j]);
+            let sum = add(a.clone(), b);
             max_magnitude = max_magnitude.max(magnitude(&sum));
         }
     }
