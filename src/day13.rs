@@ -30,7 +30,7 @@ fn fold(dots: &[(usize, usize)], instrs: &[(u8, usize)]) -> (Vec<(usize, usize)>
         }
         folded_dots.push((x, y));
     }
-    folded_dots.sort_unstable_by_key(|(x, y)| (*x as u64) << 32 | (*y as u64));
+    folded_dots.sort_unstable();
     folded_dots.dedup();
     (folded_dots, min_x_axis, min_y_axis)
 }
@@ -50,7 +50,7 @@ pub fn part2(input: &str) -> String {
     for (x, y) in folded_dots {
         canvas[(canvas_width + 1) * y + x] = b'#';
     }
-    std::str::from_utf8(&canvas).unwrap().to_owned()
+    core::str::from_utf8(&canvas).unwrap().to_owned()
 }
 
 #[cfg(test)]
