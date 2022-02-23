@@ -1,15 +1,16 @@
 #[allow(clippy::type_complexity)]
 fn parse_input(input: &str) -> ([[u64; 26]; 26], usize, Vec<(usize, usize, usize)>) {
-    let polymer_len = input.find('\n').unwrap();
+    let input = &input.as_bytes()[..input.len() - 1];
+    let polymer_len = input.iter().position(|c| *c == b'\n').unwrap();
     let mut polymer = [[0; 26]; 26];
-    let mut prev_element = (input.as_bytes()[0] - b'A') as usize;
-    for letter in &input.as_bytes()[1..polymer_len] {
+    let mut prev_element = (input[0] - b'A') as usize;
+    for letter in &input[1..polymer_len] {
         let element = (letter - b'A') as _;
         polymer[prev_element][element] += 1;
         prev_element = element;
     }
     let mut rules = Vec::with_capacity(1 << 8);
-    let rules_lines = input.as_bytes()[polymer_len + 2..input.len() - 1].split(|c| *c == b'\n');
+    let rules_lines = input[polymer_len + 2..].split(|c| *c == b'\n');
     for rule in rules_lines {
         let left = (rule[0] - b'A') as _;
         let right = (rule[1] - b'A') as _;

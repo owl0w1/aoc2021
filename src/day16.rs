@@ -75,8 +75,7 @@ fn eval(hex: &[u8], caret: &mut usize) -> u64 {
 }
 
 pub fn part2(input: &str) -> u64 {
-    let hex = &input.as_bytes()[..input.len() - 1];
-    eval(hex, &mut 0)
+    eval(input.as_bytes(), &mut 0)
 }
 
 #[cfg(test)]

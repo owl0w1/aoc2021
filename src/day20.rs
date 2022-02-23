@@ -5,11 +5,11 @@ fn parse_input(input: &str) -> ([bool; 512], Vec<bool>, usize) {
     for i in 0..512 {
         rule[i] = rule_str[i] == b'#';
     }
-    let col = image_str.iter().position(|c| *c == b'\n').unwrap();
     let image = image_str
         .iter()
         .filter_map(|c| if *c == b'\n' { None } else { Some(*c == b'#') })
         .collect();
+    let col = image_str.iter().position(|c| *c == b'\n').unwrap();
     (rule, image, col)
 }
 
